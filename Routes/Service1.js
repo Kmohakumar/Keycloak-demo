@@ -12,16 +12,16 @@ let data = {
   ],
 };
 
-const getDocuments = async (req, res) => {
+const service1 = async (req, res) => {
   try {
     const email = req.user;
-
-    res.status(200).send(data[email]);
+    
+    res.status(200).send({"message":"Service 1"});
   } catch (err) {
     res.status(500).send(err);
   }
 };
 
-router.get("/", getDocuments);
+router.get("/", service1);
 
 export default router;

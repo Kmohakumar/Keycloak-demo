@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import Service2 from "./Service2";
+import Service1 from "./Service1";
+
 
 const Protected = ({ token }) => {
   const isRun = useRef(false);
@@ -16,11 +19,12 @@ const Protected = ({ token }) => {
         authorization: `Bearer ${token}`,
       },
     };
-
     axios
       .get("/documents", config)
-      .then((res) => setData(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        console.log(res.data)
+        setData(res.data)})
+      .catch((err) => console.error({ "error": err }));
   }, []);
 
   return data ? (
@@ -28,9 +32,14 @@ const Protected = ({ token }) => {
       {data.map((rec, i) => (
         <h3 key={i}>{rec}</h3>
       ))}
+      <Service1 token={token}/>
     </>
   ) : (
-    <div>Protected</div>
+    <div>
+    <div>Protected route</div>
+    <Service2/>
+    
+    </div>
   );
 };
 
